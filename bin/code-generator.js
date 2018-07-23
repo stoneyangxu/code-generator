@@ -1,13 +1,6 @@
 #!/usr/bin/env node
 const program = require('commander');
-const { printGeneratorHelper } = require('../lib/generator/helper');
-
-function printHelp() {
-  console.log();
-  console.log('    g       Generates new code base on boilerplates');
-  console.log();
-  printGeneratorHelper();
-}
+const { printHelp } = require('../lib/generator/helper');
 
 program
   .usage('<command> [options]')
