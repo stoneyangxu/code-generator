@@ -1,0 +1,47 @@
+{
+  "name": "code-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "babel --watch src --out-dir lib",
+    "build": "rm -rf lib && babel src --out-dir lib",
+    "lint": "eslint src --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "cg": "./bin/code-generator.js"
+  },
+  "files": [
+    "lib",
+    "src",
+    "boilerplates",
+    "bin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stoneyangxu/code-generator.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stoneyangxu/code-generator/issues"
+  },
+  "homepage": "https://github.com/stoneyangxu/code-generator#readme",
+  "dependencies": {
+    "better-console": "^1.0.1",
+    "chalk": "^2.4.1",
+    "commander": "^2.16.0",
+    "ejs": "^2.6.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^5.2.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "nodemon": "^1.18.3"
+  }
+}
