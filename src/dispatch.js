@@ -1,4 +1,4 @@
-import { step, error } from './utils/console';
+import { info, error } from './utils/console';
 import { generator } from './generator';
 
 export default function dispatch(argv, program) {
@@ -9,8 +9,10 @@ export default function dispatch(argv, program) {
   const [action, cmd, targetPath] = argv.length > 2 ? argv : [...argv, './'];
   switch (action) {
     case 'g':
-      step(`start generating ${cmd}`);
+      info(`> start generating ${cmd}`);
       generator(cmd, targetPath, program);
+      info(`> end generating ${cmd}`);
+
       break;
     default:
       error(`Unknown action: ${action}`);
