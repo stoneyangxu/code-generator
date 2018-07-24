@@ -1,8 +1,14 @@
 /* eslint-env mocha */
 
-import { getCmdConfig } from '../helper';
+import { printHelp, getCmdConfig } from '../helper';
 
 require('chai').should();
+
+describe('printHelp', () => {
+  it('should print help message without error', () => {
+    printHelp();
+  });
+});
 
 describe('getCmdConfig', () => {
   it('should get config for .editorconfig', () => {
