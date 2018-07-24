@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 
-import { printHelp, getCmdConfig } from '../helper';
+import { printHelp, getCmdConfig } from '../index';
 
 require('chai').should();
 

@@ -1,25 +1,35 @@
 import chalk from 'chalk';
 
+function isTest() {
+  return process.env.NODE_ENV === 'test';
+}
+
 function log(...args) {
-  // eslint-disable-next-line no-console
-  console.log(chalk.gray(args));
+  if (!isTest()) {
+    // eslint-disable-next-line no-console
+    console.log(chalk.gray(args));
+  }
 }
 
 function info(...args) {
-  // eslint-disable-next-line no-console
-  console.log(chalk.green(args));
+  if (!isTest()) {
+    // eslint-disable-next-line no-console
+    console.log(chalk.green(args));
+  }
 }
 
 function step(...args) {
-  // eslint-disable-next-line no-console
-  console.log(chalk.bgYellow(args));
+  if (!isTest()) {
+    // eslint-disable-next-line no-console
+    console.log(chalk.bgYellow(args));
+  }
 }
 
 function error(...args) {
-  // eslint-disable-next-line no-console
-  console.log(chalk.red(args));
+  if (!isTest()) {
+    // eslint-disable-next-line no-console
+    console.log(chalk.red(args));
+  }
 }
 
-export {
-  log, info, error, step,
-};
+export { log, info, error, step };

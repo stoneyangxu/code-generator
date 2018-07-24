@@ -1,9 +1,9 @@
-import buildPath from './utils/build-path';
+import { buildTemplatePath } from './utils/build-path';
 
 export default [
   {
     cmd: 'editorconfig',
-    templatePath: buildPath('basic/.editorconfig'),
+    templatePath: buildTemplatePath('basic/.editorconfig'),
     desc: '.editorconfig file',
   },
 ];

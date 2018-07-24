@@ -1,5 +1,9 @@
 import path from 'path';
 
-export default function buildPath(relativePath) {
+export function buildTemplatePath(relativePath) {
   return path.resolve(__dirname, '../../template/', relativePath);
+}
+
+export function buildTargetPath(relativePath) {
+  return path.resolve(relativePath);
 }
