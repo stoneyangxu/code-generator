@@ -10,7 +10,7 @@ function printGeneratorHelper() {
 
 export function printHelp() {
   log();
-  log('    g       Generates new code base on boilerplates');
+  log('    g       Generates new code base on templates');
   log();
   printGeneratorHelper();
 }

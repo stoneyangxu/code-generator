@@ -4,6 +4,11 @@ function isTest() {
   return process.env.NODE_ENV === 'test';
 }
 
+function debug(...args) {
+  // eslint-disable-next-line no-console
+  console.debug(args);
+}
+
 function log(...args) {
   if (!isTest()) {
     // eslint-disable-next-line no-console
@@ -32,4 +37,4 @@ function error(...args) {
   }
 }
 
-export { log, info, error, step };
+export { debug, log, info, error, step };
