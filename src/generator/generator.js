@@ -9,22 +9,28 @@ function getFileName(templatePath) {
   return path.basename(templatePath);
 }
 
-export default function generator(cmd, targetPath, program) {
-  step(`generating ${cmd}`);
+function parseCmdAndConfig(cmd, targetPath) {
   const config = getCmdConfig(cmd);
   if (config) {
     const absoluteTargetPath = buildTargetPath(targetPath);
     if (fs.lstatSync(absoluteTargetPath).isDirectory()) {
-      // todo copy files
-      fs.ensureDirSync(absoluteTargetPath);
-      const targetTemplateName = path.resolve(absoluteTargetPath, getFileName(config.templatePath));
-      fs.copySync(config.templatePath, targetTemplateName);
-      debug(program);
-      step(`copy template to ${targetTemplateName}`);
-    } else {
-      error(`Target path is a file: ${absoluteTargetPath}`);
+      return { config, absoluteTargetPath };
     }
-  } else {
-    error(`Unknowd command ${cmd}`);
+    error(`Target path is a file: ${absoluteTargetPath}`);
+    return {};
+  }
+  error(`Unknowd command ${cmd}`);
+  return {};
+}
+
+export default function generator(cmd, targetPath, program) {
+  step(`generating ${cmd}`);
+  const { config, absoluteTargetPath } = parseCmdAndConfig(cmd, targetPath);
+  if (absoluteTargetPath) {
+    fs.ensureDirSync(absoluteTargetPath);
+    const targetTemplateName = path.resolve(absoluteTargetPath, getFileName(config.templatePath));
+    fs.copySync(config.templatePath, targetTemplateName);
+    debug(program);
+    step(`copy template to ${targetTemplateName}`);
   }
 }
