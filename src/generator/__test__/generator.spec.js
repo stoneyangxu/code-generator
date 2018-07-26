@@ -5,20 +5,23 @@ import path from 'path';
 import fs from 'fs-extra';
 import * as console from '../../utils/console';
 import generator from '../generator';
+import * as ejsReplace from '../ejs-replace';
 
 require('chai').should();
 
 describe('generator', () => {
   let fsMock = null;
+  let ejsReplaceMock = null;
 
   beforeEach(() => {
     fsMock = sinon.mock(fs);
-
+    ejsReplaceMock = sinon.mock(ejsReplace);
     sinon.spy(console, 'error');
   });
 
   afterEach(() => {
     console.error.restore();
+    ejsReplaceMock.restore();
     fsMock.restore();
   });
 
@@ -47,7 +50,32 @@ describe('generator', () => {
       .withArgs(path.resolve('./template/basic', '.editorconfig'), path.resolve('./', '.editorconfig'));
 
     generator('editorconfig', './');
-    console.debug(copyExpcetation.args);
     copyExpcetation.verify();
+  });
+
+  it('should copy template with ejs variables in name', () => {
+    fsMock.expects('ensureDirSync');
+    const copyExpcetation = fsMock
+      .expects('copySync')
+      .once()
+      .withArgs(path.resolve('./template/mocha', '<%=name%>.spec.js'), path.resolve('./', 'generator.spec.js'));
+
+    generator('mocha-spec', './', {
+      name: 'generator',
+    });
+    copyExpcetation.verify();
+  });
+
+  it('should replace content with ejs variables inside template file', () => {
+    fsMock.expects('ensureDirSync');
+    fsMock.expects('copySync');
+
+    const expectation = ejsReplaceMock.expects('replaceFileContent').once();
+
+    generator('mocha-spec', './', {
+      name: 'generator',
+    });
+
+    expectation.verify();
   });
 });

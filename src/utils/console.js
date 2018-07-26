@@ -6,7 +6,7 @@ function isTest() {
 
 function debug(...args) {
   // eslint-disable-next-line no-console
-  console.debug(args);
+  console.debug(...args);
 }
 
 function log(...args) {

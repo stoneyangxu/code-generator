@@ -6,13 +6,12 @@ const { error } = require('../lib/utils/console');
 
 program
   .usage('<action> <command> <targetPath> [options]')
-  .option('-n, --name <n>', 'name')
-  .option('-v, --variable <key1=value1,key2=value2,key3=value3...>', 'custom variables')
+  .option('-n, --name <name>', 'name')
+  // .option('-v, --variable <key1=value1,key2=value2,key3=value3...>', 'custom variables')
   .on('--help', printHelp)
   .parse(process.argv);
 
-const argv = program.args;
-const result = dispatch(argv);
+const result = dispatch(program.args, program);
 if (result === 0) {
   error('There is not enough parameters!');
   program.help();
