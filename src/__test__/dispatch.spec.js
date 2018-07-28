@@ -3,16 +3,19 @@
 import sinon from 'sinon';
 import dispatch from '../dispatch';
 import * as generator from '../generator';
+import * as console from '../utils/console';
 
 require('chai').should();
 
 describe('dispatch', () => {
   beforeEach(() => {
     sinon.stub(generator, 'generator');
+    sinon.spy(console, 'error');
   });
 
   afterEach(() => {
     generator.generator.restore();
+    console.error.restore();
   });
 
   it('should return error when there is not enough parameters', async () => {
@@ -41,5 +44,13 @@ describe('dispatch', () => {
     generator.generator.calledOnce.should.equal(true);
     generator.generator.getCall(0).args[0].should.equal('editorconfig');
     generator.generator.getCall(0).args[1].should.equal('./');
+  });
+
+  it('should print error when action is unknown', async () => {
+    await dispatch(['unknown-action', 'anything']);
+    console.error.calledOnce.should.equal(true);
+    console.error
+      .getCall(0)
+      .args[0].should.equal('Unknown action: unknown-action');
   });
 });

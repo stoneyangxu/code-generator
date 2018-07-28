@@ -14,7 +14,10 @@ function parseCmdAndConfig(cmd, targetPath) {
   const config = getCmdConfig(cmd);
   if (config) {
     const absoluteTargetPath = buildTargetPath(targetPath);
-    if (!fs.existsSync(absoluteTargetPath) || fs.lstatSync(absoluteTargetPath).isDirectory()) {
+    if (
+      !fs.existsSync(absoluteTargetPath) ||
+      fs.lstatSync(absoluteTargetPath).isDirectory()
+    ) {
       return { config, absoluteTargetPath };
     }
     error(`Target path is a file: ${absoluteTargetPath}`);
@@ -25,7 +28,10 @@ function parseCmdAndConfig(cmd, targetPath) {
 }
 
 function buildTargetTemplateName(absoluteTargetPath, config, data) {
-  const targetTemplateName = path.resolve(absoluteTargetPath, getFileName(config.templatePath));
+  const targetTemplateName = path.resolve(
+    absoluteTargetPath,
+    getFileName(config.templatePath),
+  );
   return replaceFileName(targetTemplateName, data);
 }
 
@@ -36,7 +42,11 @@ export default async function generator(cmd, targetPath, program) {
 
   if (absoluteTargetPath) {
     await fs.ensureDir(absoluteTargetPath);
-    const targetTemplateName = buildTargetTemplateName(absoluteTargetPath, config, program);
+    const targetTemplateName = buildTargetTemplateName(
+      absoluteTargetPath,
+      config,
+      program,
+    );
 
     step(`copy template to ${targetTemplateName}`);
     await fs.copy(config.templatePath, targetTemplateName);

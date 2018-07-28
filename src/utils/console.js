@@ -26,7 +26,7 @@ function info(...args) {
 function step(...args) {
   if (!isTest()) {
     // eslint-disable-next-line no-console
-    console.log(chalk.bgYellow(args));
+    console.log(chalk.yellow(args));
   }
 }
 
