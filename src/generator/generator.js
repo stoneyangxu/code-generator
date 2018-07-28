@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-import { debug, step, error } from '../utils/console';
+import { step, error } from '../utils/console';
 import { getCmdConfig } from './helper';
 import { buildTargetPath } from '../utils/build-path';
 import { replaceFileName, replaceFileContent } from './ejs-replace';
@@ -14,7 +14,6 @@ function parseCmdAndConfig(cmd, targetPath) {
   const config = getCmdConfig(cmd);
   if (config) {
     const absoluteTargetPath = buildTargetPath(targetPath);
-    debug(absoluteTargetPath, fs.existsSync(absoluteTargetPath));
     if (!fs.existsSync(absoluteTargetPath) || fs.lstatSync(absoluteTargetPath).isDirectory()) {
       return { config, absoluteTargetPath };
     }
@@ -30,19 +29,19 @@ function buildTargetTemplateName(absoluteTargetPath, config, data) {
   return replaceFileName(targetTemplateName, data);
 }
 
-export default function generator(cmd, targetPath, program) {
+export default async function generator(cmd, targetPath, program) {
   step(`generating ${cmd}`);
   const { config, absoluteTargetPath } = parseCmdAndConfig(cmd, targetPath);
-  if (absoluteTargetPath) {
-    debug(absoluteTargetPath);
+  step(absoluteTargetPath);
 
-    fs.ensureDirSync(absoluteTargetPath);
+  if (absoluteTargetPath) {
+    await fs.ensureDir(absoluteTargetPath);
     const targetTemplateName = buildTargetTemplateName(absoluteTargetPath, config, program);
-    fs.copySync(config.templatePath, targetTemplateName);
+
     step(`copy template to ${targetTemplateName}`);
+    await fs.copy(config.templatePath, targetTemplateName);
 
     step(`replace template content by parameters`);
-
-    replaceFileContent(targetTemplateName, program);
+    await replaceFileContent(targetTemplateName, program);
   }
 }

@@ -1,16 +1,16 @@
 import { info, error } from './utils/console';
 import { generator } from './generator';
 
-export default function dispatch(argv, program) {
+export default async function dispatch(argv, program) {
   if (!argv || argv.length < 2) {
-    return 0;
+    throw new Error('Not enough parameters');
   }
 
   const [action, cmd, targetPath] = argv.length > 2 ? argv : [...argv, './'];
   switch (action) {
     case 'g':
       info(`> start generating ${cmd}`);
-      generator(cmd, targetPath, program);
+      await generator(cmd, targetPath, program);
       info(`> end generating ${cmd}`);
 
       break;
@@ -18,6 +18,4 @@ export default function dispatch(argv, program) {
       error(`Unknown action: ${action}`);
       break;
   }
-
-  return 1;
 }

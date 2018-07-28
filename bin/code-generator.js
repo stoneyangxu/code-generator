@@ -11,9 +11,10 @@ program
   .on('--help', printHelp)
   .parse(process.argv);
 
-const result = dispatch(program.args, program);
-if (result === 0) {
-  error('There is not enough parameters!');
-  program.help();
-  process.exit(0);
-}
+dispatch(program.args, program).then(result => {
+  if (result === 0) {
+    error('There is not enough parameters!');
+    program.help();
+    process.exit(0);
+  }
+});

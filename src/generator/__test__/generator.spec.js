@@ -25,54 +25,54 @@ describe('generator', () => {
     fsMock.restore();
   });
 
-  it('should should print error message when cmd not found', () => {
-    generator('notExistCmd');
+  it('should should print error message when cmd not found', async () => {
+    await generator('notExistCmd');
     console.error.calledOnce.should.equal(true);
   });
 
-  it('should print error message when target path is not directory', () => {
-    generator('editorconfig', './package.json');
+  it('should print error message when target path is not directory', async () => {
+    await generator('editorconfig', './package.json');
     console.error.calledOnce.should.equal(true);
   });
 
-  it('should make sure that target path is exist', () => {
-    const expcetation = fsMock.expects('ensureDirSync').once();
-    fsMock.expects('copySync');
-    generator('editorconfig', './');
+  it('should make sure that target path is exist', async () => {
+    const expcetation = fsMock.expects('ensureDir').once();
+    fsMock.expects('copy');
+    await generator('editorconfig', './');
     expcetation.verify();
   });
 
-  it('should copy template to target path', () => {
+  it('should copy template to target path', async () => {
     fsMock.expects('ensureDirSync');
     const copyExpcetation = fsMock
-      .expects('copySync')
+      .expects('copy')
       .once()
       .withArgs(path.resolve('./template/basic', '.editorconfig'), path.resolve('./', '.editorconfig'));
 
-    generator('editorconfig', './');
+    await generator('editorconfig', './');
     copyExpcetation.verify();
   });
 
-  it('should copy template with ejs variables in name', () => {
-    fsMock.expects('ensureDirSync');
+  it('should copy template with ejs variables in name', async () => {
+    fsMock.expects('ensureDir');
     const copyExpcetation = fsMock
-      .expects('copySync')
+      .expects('copy')
       .once()
       .withArgs(path.resolve('./template/mocha', '<%=name%>.spec.js'), path.resolve('./', 'generator.spec.js'));
 
-    generator('mocha-spec', './', {
+    await generator('mocha-spec', './', {
       name: 'generator',
     });
     copyExpcetation.verify();
   });
 
-  it('should replace content with ejs variables inside template file', () => {
-    fsMock.expects('ensureDirSync');
-    fsMock.expects('copySync');
+  it('should replace content with ejs variables inside template file', async () => {
+    fsMock.expects('ensureDir');
+    fsMock.expects('copy');
 
     const expectation = ejsReplaceMock.expects('replaceFileContent').once();
 
-    generator('mocha-spec', './', {
+    await generator('mocha-spec', './', {
       name: 'generator',
     });
 

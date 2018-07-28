@@ -6,11 +6,13 @@ export function replaceFileName(filePath, data) {
   return template(data);
 }
 
-export function replaceFileContent(filePath, data) {
-  if (fs.existsSync(filePath)) {
-    const content = fs.readFileSync(filePath, 'utf-8');
+export async function replaceFileContent(filePath, data) {
+  const filePathExist = await fs.exists(filePath);
+
+  if (filePathExist) {
+    const content = await fs.readFile(filePath, 'utf-8');
     const template = ejs.compile(content, {});
     const newContent = template(data);
-    fs.writeFileSync(filePath, newContent, 'utf-8');
+    await fs.writeFile(filePath, newContent, 'utf-8');
   }
 }
