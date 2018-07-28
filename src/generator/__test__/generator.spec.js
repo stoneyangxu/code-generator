@@ -47,7 +47,10 @@ describe('generator', () => {
     const copyExpcetation = fsMock
       .expects('copy')
       .once()
-      .withArgs(path.resolve('./template/basic', '.editorconfig'), path.resolve('./', '.editorconfig'));
+      .withArgs(
+        path.resolve('./template/basic', '.editorconfig'),
+        path.resolve('./', '.editorconfig'),
+      );
 
     await generator('editorconfig', './');
     copyExpcetation.verify();
@@ -58,7 +61,10 @@ describe('generator', () => {
     const copyExpcetation = fsMock
       .expects('copy')
       .once()
-      .withArgs(path.resolve('./template/mocha', '<%=name%>.spec.js'), path.resolve('./', 'generator.spec.js'));
+      .withArgs(
+        path.resolve('./template/mocha', '<%=name%>.spec.js'),
+        path.resolve('./', 'generator.spec.js'),
+      );
 
     await generator('mocha-spec', './', {
       name: 'generator',
