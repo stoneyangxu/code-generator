@@ -66,15 +66,29 @@ describe('generator', () => {
         path.resolve('./', 'generator.spec.js'),
       );
 
+    const renameExpcetation = fsMock.expects('rename').once();
+
+    const statStub = sinon.stub(fs, 'stat').callsFake(() => ({
+      isDirectory: () => false,
+    }));
+
     await generator('mocha-spec', './', {
       name: 'generator',
     });
     copyExpcetation.verify();
+    renameExpcetation.verify();
+
+    statStub.restore();
   });
 
   it('should replace content with ejs variables inside template file', async () => {
     fsMock.expects('ensureDir');
     fsMock.expects('copy');
+    fsMock.expects('rename');
+
+    const statStub = sinon.stub(fs, 'stat').callsFake(() => ({
+      isDirectory: () => false,
+    }));
 
     const expectation = ejsReplaceMock.expects('replaceFileContent').once();
 
@@ -83,5 +97,6 @@ describe('generator', () => {
     });
 
     expectation.verify();
+    statStub.restore();
   });
 });

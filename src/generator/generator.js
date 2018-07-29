@@ -35,6 +35,23 @@ function buildTargetTemplateName(absoluteTargetPath, config, data) {
   return replaceFileName(targetTemplateName, data);
 }
 
+async function replaceFilenameAndContents(filePath, program) {
+  const fstat = await fs.stat(filePath);
+  if (fstat.isDirectory()) {
+    const filesInDirectory = await fs.readdir(filePath);
+    await Promise.all(
+      filesInDirectory.map(filename =>
+        replaceFilenameAndContents(path.resolve(filePath, filename), program),
+      ),
+    );
+  } else {
+    const replacedFileName = replaceFileName(filePath, program);
+    step(`replace template content by parameters: ${replacedFileName}`);
+    await fs.rename(filePath, replacedFileName);
+    await replaceFileContent(replacedFileName, program);
+  }
+}
+
 export default async function generator(cmd, targetPath, program) {
   step(`generating ${cmd}`);
   const { config, absoluteTargetPath } = parseCmdAndConfig(cmd, targetPath);
@@ -50,8 +67,6 @@ export default async function generator(cmd, targetPath, program) {
 
     step(`copy template to ${targetTemplateName}`);
     await fs.copy(config.templatePath, targetTemplateName);
-
-    step(`replace template content by parameters`);
-    await replaceFileContent(targetTemplateName, program);
+    await replaceFilenameAndContents(targetTemplateName, program);
   }
 }

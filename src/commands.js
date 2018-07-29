@@ -16,4 +16,9 @@ export default [
     templatePath: buildTemplatePath('mocha/<%=name%>.spec.js'),
     desc: 'A spec for mocha with chai and sinon',
   },
+  {
+    cmd: 'nodejs-with-mocha',
+    templatePath: buildTemplatePath('nodejs/with-mocha/<%=name%>'),
+    desc: 'A nodejs project with mocha',
+  },
 ];
