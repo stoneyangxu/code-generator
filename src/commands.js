@@ -12,6 +12,11 @@ export default [
     desc: '.gitignore file for npm project',
   },
   {
+    cmd: 'es6-module',
+    templatePath: buildTemplatePath('js/<%=name%>.js'),
+    desc: 'A javascript module with es6 export',
+  },
+  {
     cmd: 'mocha-spec',
     templatePath: buildTemplatePath('mocha/<%=name%>.spec.js'),
     desc: 'A spec for mocha with chai and sinon',

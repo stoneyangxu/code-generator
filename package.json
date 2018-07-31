@@ -17,14 +17,14 @@
   "files": [
     "lib",
     "src",
-    "boilerplates",
+    "template",
     "bin"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stoneyangxu/code-generator.git"
   },
-  "author": "",
+  "author": "hityangxu",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/stoneyangxu/code-generator/issues"

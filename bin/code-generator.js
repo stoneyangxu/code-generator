@@ -7,7 +7,10 @@ const { error } = require('../lib/utils/console');
 program
   .usage('<action> <command> <targetPath> [options]')
   .option('-n, --name <name>', 'name')
-  // .option('-v, --variable <key1=value1,key2=value2,key3=value3...>', 'custom variables')
+  .option(
+    '-v, --variable <key1=value1;key2=value2;key3=value3...>',
+    'custom variables',
+  )
   .on('--help', printHelp)
   .parse(process.argv);
 

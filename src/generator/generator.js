@@ -5,6 +5,7 @@ import { step, error } from '../utils/console';
 import { getCmdConfig } from './helper';
 import { buildTargetPath } from '../utils/build-path';
 import { replaceFileName, replaceFileContent } from './ejs-replace';
+import parameterParser from './parameterParser';
 
 function getFileName(templatePath) {
   return path.basename(templatePath);
@@ -57,16 +58,18 @@ export default async function generator(cmd, targetPath, program) {
   const { config, absoluteTargetPath } = parseCmdAndConfig(cmd, targetPath);
   step(absoluteTargetPath);
 
+  const parameters = parameterParser(program);
+
   if (absoluteTargetPath) {
     await fs.ensureDir(absoluteTargetPath);
     const targetTemplateName = buildTargetTemplateName(
       absoluteTargetPath,
       config,
-      program,
+      parameters,
     );
 
     step(`copy template to ${targetTemplateName}`);
     await fs.copy(config.templatePath, targetTemplateName);
-    await replaceFilenameAndContents(targetTemplateName, program);
+    await replaceFilenameAndContents(targetTemplateName, parameters);
   }
 }
