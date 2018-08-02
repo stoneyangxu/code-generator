@@ -14,6 +14,12 @@ export default async function dispatch(argv, program) {
       info(`> end generating ${cmd}`);
 
       break;
+    case 'add':
+      info(`> start adding ${cmd}`);
+      // await add(cmd, targetPath, program);
+      info(`> end adding ${cmd}`);
+
+      break;
     default:
       error(`Unknown action: ${action}`);
       break;
