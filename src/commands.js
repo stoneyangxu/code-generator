@@ -31,4 +31,9 @@ export default [
     templatePath: buildTemplatePath('nodejs/with-mocha/<%=name%>'),
     desc: 'A nodejs project with mocha',
   },
+  {
+    cmd: 'nodejs-with-jest',
+    templatePath: buildTemplatePath('nodejs/with-jest/<%=name%>'),
+    desc: 'A nodejs project with jest',
+  },
 ];
