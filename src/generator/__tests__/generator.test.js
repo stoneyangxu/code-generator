@@ -12,19 +12,19 @@ beforeEach(() => {
   fs.rename = jest.fn();
 });
 
-it('should should print error message when cmd not found', async () => {
+test('should should print error message when cmd not found', async () => {
   console.error = jest.fn();
   await generator('notExistCmd');
   expect(console.error).toHaveBeenCalled();
 });
 
-it('should print error message when target path is not directory', async () => {
+test('should print error message when target path is not directory', async () => {
   console.error = jest.fn();
   await generator('editorconfig', './package.json');
   expect(console.error).toHaveBeenCalled();
 });
 
-it('should make sure that target path is exist', async () => {
+test('should make sure that target path is exist', async () => {
   fs.copy = jest.fn();
   fs.ensureDir = jest.fn();
 
@@ -33,7 +33,7 @@ it('should make sure that target path is exist', async () => {
   expect(fs.ensureDir).toHaveBeenCalled();
 });
 
-it('should copy template to target path', async () => {
+test('should copy template to target path', async () => {
   await generator('editorconfig', './');
 
   expect(fs.copy).toHaveBeenCalledTimes(1);
@@ -43,7 +43,7 @@ it('should copy template to target path', async () => {
   );
 });
 
-it('should copy template with ejs variables in name', async () => {
+test('should copy template with ejs variables in name', async () => {
   fs.stat = jest.fn();
   fs.stat.mockReturnValue({
     isDirectory: () => false,
@@ -61,7 +61,7 @@ it('should copy template with ejs variables in name', async () => {
   expect(fs.rename).toHaveBeenCalledTimes(1);
 });
 
-it('should replace content with ejs variables inside template file', async () => {
+test('should replace content with ejs variables inside template file', async () => {
   fs.stat.mockReturnValue({
     isDirectory: () => false,
   });

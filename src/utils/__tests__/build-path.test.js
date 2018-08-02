@@ -3,7 +3,7 @@
 import path from 'path';
 import { buildTemplatePath, buildTargetPath } from '../build-path';
 
-it('should build absolute path by relative path', () => {
+test('should build absolute path by relative path', () => {
   expect(
     buildTemplatePath('.editorconfig').endsWith(
       `${path.sep}code-generator${path.sep}template${path.sep}.editorconfig`,
@@ -11,7 +11,7 @@ it('should build absolute path by relative path', () => {
   ).toBeTruthy();
 });
 
-it('should get current path', () => {
+test('should get current path', () => {
   expect(
     buildTargetPath('.').endsWith(`${path.sep}code-generator`),
   ).toBeTruthy();
@@ -21,7 +21,7 @@ it('should get current path', () => {
   ).toBeTruthy();
 });
 
-it('should build target path', () => {
+test('should build target path', () => {
   expect(
     buildTargetPath('./targetPath').endsWith(
       `${path.sep}code-generator${path.sep}targetPath`,

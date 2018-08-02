@@ -2,7 +2,7 @@
 
 import parameterParser from '../parameterParser';
 
-it('should parse name in commander program', () => {
+test('should parse name in commander program', () => {
   const program = {
     name: 'nameValue',
   };
@@ -10,7 +10,7 @@ it('should parse name in commander program', () => {
   expect(parameters.name).toBe('nameValue');
 });
 
-it('should parse other parameters in variable parameter', () => {
+test('should parse other parameters in variable parameter', () => {
   const program = {
     name: 'nameValue',
     variable: 'key1=value1;key2=value2',
@@ -21,7 +21,7 @@ it('should parse other parameters in variable parameter', () => {
   expect(parameters.key2).toBe('value2');
 });
 
-it('should skip invalid parameter in variable string', () => {
+test('should skip invalid parameter in variable string', () => {
   const program = {
     name: 'nameValue',
     variable: 'key1=value1;key2',

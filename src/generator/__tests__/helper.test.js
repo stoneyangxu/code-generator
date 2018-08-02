@@ -2,7 +2,7 @@
 
 import { printHelp, getCmdConfig } from '../index';
 
-it('should print help message without error', () => {
+test('should print help message without error', () => {
   // eslint-disable-next-line no-console
   console.log = jest.fn();
   printHelp();
@@ -10,7 +10,7 @@ it('should print help message without error', () => {
   expect(console.log).toHaveBeenCalled();
 });
 
-it('should get config for .editorconfig', () => {
+test('should get config for .editorconfig', () => {
   const config = getCmdConfig('editorconfig');
 
   expect(config.cmd).toBe('editorconfig');
@@ -18,7 +18,7 @@ it('should get config for .editorconfig', () => {
   expect(config.templatePath.endsWith('basic/.editorconfig')).toBeTruthy();
 });
 
-it('should get undefined for not exist command', () => {
+test('should get undefined for not exist command', () => {
   const config = getCmdConfig('not exist command');
   expect(config).toBeUndefined();
 });

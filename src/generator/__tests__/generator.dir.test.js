@@ -15,7 +15,7 @@ afterEach(() => {
   rimraf.sync(mockDir);
 });
 
-it('is a example test', async () => {
+test('is a example test', async () => {
   await generator('nodejs-with-mocha', mockDir, {
     name: 'new-project',
   });

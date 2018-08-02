@@ -2,7 +2,7 @@
 
 import { debug, step, log, info, error } from '../console';
 
-it('should should call console.log', () => {
+test('should should call console.log', () => {
   // eslint-disable-next-line no-console
   console.log = jest.fn();
   debug('some message');

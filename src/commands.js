@@ -22,6 +22,11 @@ export default [
     desc: 'A spec for mocha with chai and sinon',
   },
   {
+    cmd: 'jest-test',
+    templatePath: buildTemplatePath('jest/<%=name%>.test.js'),
+    desc: 'A test in jest',
+  },
+  {
     cmd: 'nodejs-with-mocha',
     templatePath: buildTemplatePath('nodejs/with-mocha/<%=name%>'),
     desc: 'A nodejs project with mocha',

@@ -10,7 +10,7 @@ beforeEach(() => {
 
 afterEach(() => {});
 
-it('should return error when there is not enough parameters', async () => {
+test('should return error when there is not enough parameters', async () => {
   try {
     await dispatch();
   } catch (e) {
@@ -24,7 +24,7 @@ it('should return error when there is not enough parameters', async () => {
   }
 });
 
-it('should call generator when action is g', async () => {
+test('should call generator when action is g', async () => {
   await dispatch(['g', 'editorconfig', './']);
   expect(generator.generator).toHaveBeenCalledTimes(1);
   expect(generator.generator).toHaveBeenLastCalledWith(
@@ -34,7 +34,7 @@ it('should call generator when action is g', async () => {
   );
 });
 
-it('should make targetPath to be current if ignore the third parameter', async () => {
+test('should make targetPath to be current if ignore the third parameter', async () => {
   await dispatch(['g', 'editorconfig']);
   expect(generator.generator).toHaveBeenCalledTimes(1);
   expect(generator.generator).toHaveBeenLastCalledWith(
@@ -44,7 +44,7 @@ it('should make targetPath to be current if ignore the third parameter', async (
   );
 });
 
-it('should print error when action is unknown', async () => {
+test('should print error when action is unknown', async () => {
   console.error = jest.fn();
   await dispatch(['unknown-action', 'anything']);
   expect(console.error.mock.calls.length).toBe(1);
