@@ -2,7 +2,7 @@
 const program = require('commander');
 const { printHelp } = require('../lib/generator');
 const dispatch = require('../lib/dispatch').default;
-const { error } = require('../lib/utils/console');
+const { info, error } = require('../lib/utils/console');
 
 program
   .usage('<action> <command> <targetPath> [options]')
@@ -14,10 +14,13 @@ program
   .on('--help', printHelp)
   .parse(process.argv);
 
-dispatch(program.args, program).then(result => {
-  if (result === 0) {
-    error('There is not enough parameters!');
+dispatch(program.args, program)
+  .then(result => {
+    info(result);
+    process.exit(1);
+  })
+  .catch(e => {
+    error(e);
     program.help();
     process.exit(0);
-  }
-});
+  });

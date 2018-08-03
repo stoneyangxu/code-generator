@@ -14,10 +14,13 @@ program
   .on('--help', printHelp)
   .parse(process.argv);
 
-dispatch(program.args, program).then(result => {
-  if (result === 0) {
-    error('There is not enough parameters!');
+dispatch(program.args, program)
+  .then(result => {
+    info(result);
+    process.exit(1);
+  })
+  .catch(e => {
+    error(e);
     program.help();
     process.exit(0);
-  }
-});
+  });
