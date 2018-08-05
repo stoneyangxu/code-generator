@@ -36,4 +36,9 @@ export default [
     templatePath: buildTemplatePath('nodejs/with-jest/<%=name%>'),
     desc: 'A nodejs project with jest',
   },
+  {
+    cmd: 'react-smart-component',
+    templatePath: buildTemplatePath('react/smart-component/<%=name%>'),
+    desc: 'A smart react component',
+  },
 ];
