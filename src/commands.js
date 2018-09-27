@@ -13,32 +13,32 @@ export default [
   },
   {
     cmd: 'es6-module',
-    templatePath: buildTemplatePath('js/<%=name%>.js'),
+    templatePath: buildTemplatePath('js/{{name}}.js'),
     desc: 'A javascript module with es6 export',
   },
   {
     cmd: 'mocha-spec',
-    templatePath: buildTemplatePath('mocha/<%=name%>.spec.js'),
+    templatePath: buildTemplatePath('mocha/{{name}}.spec.js'),
     desc: 'A spec for mocha with chai and sinon',
   },
   {
     cmd: 'jest-test',
-    templatePath: buildTemplatePath('jest/<%=name%>.test.js'),
+    templatePath: buildTemplatePath('jest/{{name}}.test.js'),
     desc: 'A test in jest',
   },
   {
     cmd: 'nodejs-with-mocha',
-    templatePath: buildTemplatePath('nodejs/with-mocha/<%=name%>'),
+    templatePath: buildTemplatePath('nodejs/with-mocha/{{name}}'),
     desc: 'A nodejs project with mocha',
   },
   {
     cmd: 'nodejs-with-jest',
-    templatePath: buildTemplatePath('nodejs/with-jest/<%=name%>'),
+    templatePath: buildTemplatePath('nodejs/with-jest/{{name}}'),
     desc: 'A nodejs project with jest',
   },
   {
     cmd: 'react-smart-component',
-    templatePath: buildTemplatePath('react/smart-component/<%=name%>'),
+    templatePath: buildTemplatePath('react/smart-component/{{name}}'),
     desc: 'A smart react component',
   },
 ];

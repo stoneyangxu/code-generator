@@ -55,7 +55,7 @@ test('should copy template with ejs variables in name', async () => {
 
   expect(fs.copy).toHaveBeenCalledTimes(1);
   expect(fs.copy).toHaveBeenLastCalledWith(
-    path.resolve('./template/mocha', '<%=name%>.spec.js'),
+    path.resolve('./template/mocha', '{{name}}.spec.js'),
     path.resolve('./', 'generator.spec.js'),
   );
   expect(fs.rename).toHaveBeenCalledTimes(1);

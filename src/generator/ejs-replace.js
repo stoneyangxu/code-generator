@@ -1,9 +1,9 @@
 import ejs from 'ejs';
 import fs from 'fs-extra';
+import mustache from 'mustache';
 
 export function replaceFileName(filePath, data) {
-  const template = ejs.compile(filePath, {});
-  return template(data);
+  return mustache.render(filePath, data);
 }
 
 export async function replaceFileContent(filePath, data) {
